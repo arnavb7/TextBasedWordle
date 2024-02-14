@@ -2,7 +2,7 @@
 # UTEID: ab78845
 #
 # On my honor, Arnav Bhasin, this programming assignment is my own work
-# and I have not provided this code to any other student.
+# and I have not provided this code to any other student
 
 import random
 
