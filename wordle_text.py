@@ -46,7 +46,7 @@ def main():
         if currentRound < tries:
             print("You win. " + winWords[currentRound] + "\n")
         else:
-            print("Not quite. The secret word was " + secret_word + "\n")
+            print("Not quite. The secret word was " + secret_word + ".\n")
         restart = input("Do you want to play again? Type Y for yes: ")
         if restart != 'y':
             wordleOngoing = False
