@@ -68,44 +68,25 @@ def getStatus(secret_word, guess):
     orange_status = ""
     combined_status = ""
     secret_word_letters = list(secret_word)
-    new_guess = ""
     for letter1, letter2 in zip(secret_word, guess):
         if letter1 == letter2:
             green_status += "G"
             secret_word_letters.remove(letter1)
         else:
             green_status += "-"
-            new_guess += letter1
-    # print("green status: " + green_status)
-    # print(secret_word_letters)
-    """
-    beets
-    beset
-    """
-    # print("new guess: " + new_guess)
-    for letter1 in new_guess:
+    for letter1 in guess:
         if letter1 in secret_word_letters:
             orange_status += "O"
             secret_word_letters.remove(letter1)
         else:
             orange_status += "-"
-    # print("orange status: " + orange_status)
-    # print("Zipped: " + str(list(zip(green_status, orange_status))))
-    idx = 0
-    for i in green_status:
-        if i == "-":
-            combined_status += orange_status[idx]
-            idx += 1
+    for letter1, letter2 in zip(green_status, orange_status):
+        if letter1 == "G":
+            combined_status += "G"
+        elif letter2 == "O":
+            combined_status += "O"
         else:
-            combined_status += i
-    # for letter1, letter2 in zip(green_status, orange_status):
-    #     if letter1 == "G":
-    #         combined_status += "G"
-    #     elif letter2 == "O":
-    #         combined_status += "O"
-    #     else:
-    #         combined_status += "-"
-    # print("combined status" + combined_status)
+            combined_status += "-"
     return combined_status
 
 def checkValidGuess(all_words):
