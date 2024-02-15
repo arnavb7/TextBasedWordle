@@ -6,7 +6,6 @@
 
 import random 
 
-
 def main():
     """ Plays a text based version of Wordle.
         1. Read in the words that can be choices for the secret word
@@ -19,51 +18,52 @@ def main():
     secret_words, all_words = get_words()
     welcome_and_instructions()
 
-    wordleOngoing = True
-    while wordleOngoing:
+    wordle_ongoing = True
+    while wordle_ongoing:
         print("")
-        winWords = ["Genius!", "Magnificent!", "Impressive!", "Splendid!", "Great!", "Phew!"]
+        win_words = ["Genius!", "Magnificent!", "Impressive!", "Splendid!", 
+                    "Great!", "Phew!"]
         secret_word = random.choice(secret_words)
-        unusedLetters = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-        previousGuesses = list()
-        currentRound = 0
+        unused_letters = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        previous_guesses = list()
+        current_round = 0
         tries = 6
-        gameOver = False
-        while (not gameOver) and (currentRound < tries):
-            guess = checkValidGuess(all_words)
-            status_string = getStatus(secret_word, guess)
-            unusedLetters = updateUnusedLetters(guess, unusedLetters)
-            previousGuesses.append(status_string)
-            previousGuesses.append(guess)
-            for str in previousGuesses:
+        game_over = False
+        while (not game_over) and (current_round < tries):
+            guess = check_valid_guess(all_words)
+            status_string = get_status(secret_word, guess)
+            unused_letters = update_unused_letters(guess, unused_letters)
+            previous_guesses.append(status_string)
+            previous_guesses.append(guess)
+            for str in previous_guesses:
                 print(str)
             print("")
-            printUnusedLetters(unusedLetters)
+            print_unused_letters(unused_letters)
             if (guess == secret_word):
-                gameOver = True
+                game_over = True
                 break
-            currentRound += 1
-        if currentRound < tries:
-            print("You win. " + winWords[currentRound] + "\n")
+            current_round += 1
+        if current_round < tries:
+            print("You win. " + win_words[current_round] + "\n")
         else:
             print("Not quite. The secret word was " + secret_word + ".\n")
         restart = input("Do you want to play again? Type Y for yes: ")
         if restart != 'y':
-            wordleOngoing = False
+            wordle_ongoing = False
 
-def printUnusedLetters(unusedLetters):
+def print_unused_letters(unused_letters):
     print("Unused letters:", end = " ")
-    for letter in unusedLetters[:-1]:
+    for letter in unused_letters[:-1]:
         print(letter, end = " ")
-    print(unusedLetters[-1] + "\n")
+    print(unused_letters[-1] + "\n")
 
-def updateUnusedLetters(guess, unusedLetters):
+def update_unused_letters(guess, unused_letters):
     for letter1 in guess:
-        if letter1 in unusedLetters:
-            unusedLetters.remove(letter1)
-    return unusedLetters
+        if letter1 in unused_letters:
+            unused_letters.remove(letter1)
+    return unused_letters
         
-def getStatus(secret_word, guess):
+def get_status(secret_word, guess):
     green_status = ""
     full_status = ""
     secret_word_letters = list(secret_word)
@@ -83,15 +83,15 @@ def getStatus(secret_word, guess):
             full_status += "-"
     return full_status
 
-def checkValidGuess(all_words):
-    validGuess = False
-    while not validGuess:
+def check_valid_guess(all_words):
+    valid_guess = False
+    while not valid_guess:
         guess = input("Enter your guess. A 5 letter word: ").upper()
         print("")
         if guess not in all_words:
             print(guess + " is not a valid word. Please try again.\n")
         else:
-            validGuess = True
+            valid_guess = True
             return guess    
 
 def welcome_and_instructions():
