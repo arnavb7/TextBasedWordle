@@ -4,7 +4,7 @@
 # On my honor, Arnav Bhasin, this programming assignment is my own work
 # and I have not provided this code to any other student
 
-import random
+import random 
 
 
 def main():
@@ -65,8 +65,7 @@ def updateUnusedLetters(guess, unusedLetters):
         
 def getStatus(secret_word, guess):
     green_status = ""
-    orange_status = ""
-    combined_status = ""
+    full_status = ""
     secret_word_letters = list(secret_word)
     for letter1, letter2 in zip(secret_word, guess):
         if letter1 == letter2:
@@ -74,20 +73,15 @@ def getStatus(secret_word, guess):
             secret_word_letters.remove(letter1)
         else:
             green_status += "-"
-    for letter1 in guess:
-        if letter1 in secret_word_letters:
-            orange_status += "O"
-            secret_word_letters.remove(letter1)
-        else:
-            orange_status += "-"
-    for letter1, letter2 in zip(green_status, orange_status):
+    for letter1, letter2 in zip(green_status, guess):
         if letter1 == "G":
-            combined_status += "G"
-        elif letter2 == "O":
-            combined_status += "O"
+            full_status += "G"
+        elif letter2 in secret_word_letters:
+            full_status += "O"
+            secret_word_letters.remove(letter2)
         else:
-            combined_status += "-"
-    return combined_status
+            full_status += "-"
+    return full_status
 
 def checkValidGuess(all_words):
     validGuess = False
